@@ -18,5 +18,9 @@ $router->group(['prefix' => 'api'], function($router) {
     $router->get('/posts', 'PostsController@index');
 
     $router->get('/post/{postId}', 'PostsController@show');
-
+    
+    $router->put('/post', 'PostsController@update');
+    
+    $router->post('/posts', 'PostsController@store');
+    
 });

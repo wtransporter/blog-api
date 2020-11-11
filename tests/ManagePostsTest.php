@@ -27,5 +27,13 @@ class ManagePostsTest extends TestCase
         $this->assertEquals(200, $response->status());
     }
 
+    /** @test */
+    public function a_user_can_create_blog_post()
+    {
+        $post = Post::factory()->make();
+        $response = $this->call('POST', '/api/post', $post->toArray());
+
+        $this->assertEquals(200, $response->status());
+    }
 
 }
