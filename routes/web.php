@@ -13,6 +13,10 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['prefix' => 'api'], function($router) {
+
+    $router->get('/posts', 'PostsController@index');
+
+    $router->get('/post/{postId}', 'PostsController@show');
+
 });
