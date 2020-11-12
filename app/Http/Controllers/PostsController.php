@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -16,7 +17,10 @@ class PostsController extends Controller
 	 */
 	public function index()
 	{
-		return response()->json(Post::all());
+		return response()->json([
+				'message' => 'success',
+				'posts' => Post::all()
+			]);
 	}
 
 	/**
@@ -38,7 +42,10 @@ class PostsController extends Controller
 
 		}
 		
-		return response()->json($post);
+		return response()->json([
+				'message' => 'success',
+				'post' => $post
+			]);
 	}
 
 	/**
@@ -51,12 +58,11 @@ class PostsController extends Controller
 	public function store(Request $request)
 	{
 		$attributes = $this->validate($request,[
-			'user_id' => 'required|integer|exists:users,id',
 			'title' => 'required|min:5',
 			'body' => 'required|min:3',
 		]);
 
-		$post = Post::create($attributes);
+		$post = Auth::user()->posts()->create($attributes);
 
 		return response()->json($post);
 	}
@@ -78,5 +84,27 @@ class PostsController extends Controller
 		$post->update($attributes);
 
 		return response()->json($post);
+	}
+
+	/**
+	* Delete the given blog post.
+	*
+	* @param int $id
+
+	* @return Response
+	*/
+	public function destroy($postId)
+	{
+		try {
+			
+			Post::findOrFail($postId)->delete();
+
+		} catch (\Exception $e) {
+			
+			return response()->json(['message' => 'Cannot process request.'], 422);
+
+		}
+	
+		return response()->json(['message' => 'Successfully deleted post.']);
 	}
 }

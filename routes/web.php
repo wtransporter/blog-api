@@ -30,5 +30,7 @@ $router->group([
     $router->put('/post', 'PostsController@update');
     
     $router->post('/posts', 'PostsController@store');
+
+    $router->delete('/post/{postId}', 'PostsController@destroy');
     
 });
