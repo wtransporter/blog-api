@@ -16,4 +16,14 @@ class Post extends Model
      */
     protected $guarded = ['id'];
 
+    /**
+     * Each post is associated to a user
+     * 
+     * 
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
