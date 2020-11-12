@@ -13,7 +13,14 @@
 |
 */
 
-$router->group(['prefix' => 'api'], function($router) {
+
+
+$router->group([
+    'middleware' => 'auth',
+    'prefix' => 'api'], function($router) {
+
+    $router->post('/register', 'AuthController@register');
+    $router->post('/login', 'AuthController@index');
 
     $router->get('/posts', 'PostsController@index');
 
