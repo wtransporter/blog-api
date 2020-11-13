@@ -32,6 +32,7 @@ Authentication endpoints
 <pre>
     php -S 127.0.0.1:8887 -t public
 </pre>
+To test API endpoints you can use Postman.
 
 # Usage
 
