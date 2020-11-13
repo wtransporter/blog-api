@@ -69,6 +69,7 @@ class PostsController extends Controller
 		$post = Auth::user()->posts()->create($attributes);
 
 		return response()->json([
+				'code' => 202,
 				'message' => 'success',
 				'post' => $post
 			]);
@@ -91,6 +92,7 @@ class PostsController extends Controller
 		$post->update($attributes);
 
 		return response()->json([
+				'code' => 202,
 				'message' => 'success',
 				'post' => $post
 			]);
@@ -107,7 +109,7 @@ class PostsController extends Controller
 	{
 		try {
 			
-			$post = Post::findOrFail($postId)->delete();
+			Post::findOrFail($postId)->delete();
 
 		} catch (\Exception $e) {
 			
@@ -120,8 +122,7 @@ class PostsController extends Controller
 	
 		return response()->json([
 				'code' => 202,
-				'message' => 'success',
-				'post' => $post
+				'message' => 'success'
 			]);
 	}
 }
