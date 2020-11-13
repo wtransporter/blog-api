@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
     {
         User::factory()->times(5)->create()
             ->each(function($user){
-                Post::factory()->times(3)->create();
+                Post::factory()->times(3)->create(['user_id' => $user->id]);
             });
     }
 }

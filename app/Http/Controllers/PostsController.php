@@ -18,6 +18,7 @@ class PostsController extends Controller
 	public function index()
 	{
 		return response()->json([
+				'code' => 200,
 				'message' => 'success',
 				'posts' => Post::all()
 			]);
@@ -38,7 +39,10 @@ class PostsController extends Controller
 
 		} catch (\Exception $e) {
 
-			return response()->json(['message' => 'Post not found.'], 404);
+			return response()->json([
+					'code' => 404,
+					'message' => 'Post not found.'
+				], 404);
 
 		}
 		
@@ -64,7 +68,10 @@ class PostsController extends Controller
 
 		$post = Auth::user()->posts()->create($attributes);
 
-		return response()->json($post);
+		return response()->json([
+				'message' => 'success',
+				'post' => $post
+			]);
 	}
 
 	/**
@@ -83,7 +90,10 @@ class PostsController extends Controller
 		$post = Post::findOrFail($request->input('id'));
 		$post->update($attributes);
 
-		return response()->json($post);
+		return response()->json([
+				'message' => 'success',
+				'post' => $post
+			]);
 	}
 
 	/**
@@ -97,14 +107,21 @@ class PostsController extends Controller
 	{
 		try {
 			
-			Post::findOrFail($postId)->delete();
+			$post = Post::findOrFail($postId)->delete();
 
 		} catch (\Exception $e) {
 			
-			return response()->json(['message' => 'Cannot process request.'], 422);
+			return response()->json([
+					'code' => 422,
+					'message' => 'Cannot process request.'
+				], 422);
 
 		}
 	
-		return response()->json(['message' => 'Successfully deleted post.']);
+		return response()->json([
+				'code' => 202,
+				'message' => 'success',
+				'post' => $post
+			]);
 	}
 }
