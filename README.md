@@ -28,6 +28,10 @@ Authentication endpoints
     <pre>php artisan migrate</pre>
 7. Seed database to insert 5 users and 3 blog post for each user (for testing if needed)</br>
     <pre>php artisan db:seed</pre>
+8. Start server</br>
+<pre>
+    php -S 127.0.0.1:8887 -t public
+</pre>
 
 # Usage
 
@@ -44,10 +48,26 @@ Authorization bearer token recieved in login request must be added to all</br>
 requests listed below:
 
 Making requests: (response json included as example)</br>
-For fetching all blog posts we need to make GET request to route</br>
+To create a blog posts we need to make POST request to route</br>
 `/api/posts`</br>
-
-For fetching single blog posts we need to make GET request to route</br>
+with title and body. Minimum length of a title is 5 characters and for body 3 characters.
+For fetching all blog posts we need to make GET request to route</br>
+<pre>
+    {
+        "code": 202,
+        "message": "success",
+        "post": {
+            "title": "Post title",
+            "body": "New test post body",
+            "user_id": 6,
+            "updated_at": "2020-11-13T12:46:10.000000Z",
+            "created_at": "2020-11-13T12:46:10.000000Z",
+            "id": 18
+        }
+    }
+</pre>
+`/api/posts`</br>
+For fetching single blog post we need to make GET request to route</br>
 `/api/post/{id}` </br>with valid post ID (/api/posts/6).</br>
 <pre>
     {

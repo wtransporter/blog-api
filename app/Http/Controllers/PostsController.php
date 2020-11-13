@@ -47,6 +47,7 @@ class PostsController extends Controller
 		}
 		
 		return response()->json([
+				'code' => 202,
 				'message' => 'success',
 				'post' => $post
 			]);
