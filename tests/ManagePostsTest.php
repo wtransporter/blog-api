@@ -1,8 +1,6 @@
 <?php
 
 use App\Models\Post;
-use App\Models\User;
-use Illuminate\Http\Response;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class ManagePostsTest extends TestCase
@@ -106,4 +104,27 @@ class ManagePostsTest extends TestCase
         $this->assertEquals(401, $response->status());
 
     }
+
+        /** @test */
+        public function authenticated_user_can_delete_a_blog_post()
+        {
+            $this->signIn();
+            
+            $post = Post::factory()->create();
+    
+            $this->json('DELETE', '/api/post/'.$post->id);
+    
+            $this->notSeeInDatabase('posts', $post->toArray());    
+        }
+
+        /** @test */
+        public function unauthenticated_user_not_allowed_to_delete_a_blog_post()
+        {
+           
+            $post = Post::factory()->create();
+    
+            $response = $this->CALL('DELETE', '/api/post/'.$post->id);
+
+            $this->assertEquals(401, $response->status());
+        }
 }

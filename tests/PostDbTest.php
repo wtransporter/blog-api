@@ -2,8 +2,6 @@
 
 
 use App\Models\User;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 
 class PostDbTest extends TestCase

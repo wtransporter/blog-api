@@ -15,7 +15,7 @@ class AuthController extends Controller
      * 
      */
     public function __construct() {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'logout']]);
     }
 
     /**
@@ -75,6 +75,29 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     * Logout user
+     * 
+     * @return Response
+     */
+    public function logout(Request $request)
+    {
+        if ($request->has('auth_token')) {
+            $token = $request('auth_token');
+        } else {
+            $authHeader = explode(' ', $request->header('authorization'));
+            $token = $authHeader[1];
+        }
+
+        try {
+            Auth::invalidate($token);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+            return response()->json('Token is required.');
+        }
+
+        return response()->json('Successfully logged out.');
     }
 
     /**
