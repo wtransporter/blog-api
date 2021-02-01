@@ -84,12 +84,8 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
-        if ($request->has('auth_token')) {
-            $token = $request('auth_token');
-        } else {
-            $authHeader = explode(' ', $request->header('authorization'));
-            $token = $authHeader[1];
-        }
+        $authHeader = explode(' ', $request->header('authorization'));
+        $token = $authHeader[1];
 
         try {
             Auth::invalidate($token);

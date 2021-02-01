@@ -52,7 +52,6 @@ Making requests: (response json included as example)</br>
 To create a blog posts we need to make POST request to route</br>
 `/api/posts`</br>
 with title and body. Minimum length of a title is 5 characters and for body 3 characters.
-For fetching all blog posts we need to make GET request to route</br>
 <pre>
     {
         "code": 202,
@@ -67,7 +66,7 @@ For fetching all blog posts we need to make GET request to route</br>
         }
     }
 </pre>
-`/api/posts`</br>
+For fetching all blog posts we need to make GET request to route `/api/posts`</br>
 For fetching single blog post we need to make GET request to route</br>
 `/api/post/{id}` </br>with valid post ID (/api/posts/6).</br>
 <pre>
